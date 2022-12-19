@@ -1,0 +1,73 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+workstation=[
+  {
+    :hostname => "workstation.example.com",
+    :ip => "192.168.60.3",
+    :box => "rockylinux/9",
+    :ram => 2048
+  }
+]
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |workstationconfig|
+  workstation.each do |workstation|
+    workstationconfig.vm.define workstation[:hostname] do |workstationnode|
+      workstationnode.ssh.insert_key = true
+      workstationnode.vm.synced_folder ".", "/vagrant", disabled: false
+      workstationnode.vm.synced_folder "./classwork", "/home/vagrant/classwork", disabled: false
+      workstationnode.vm.box = workstation[:box]
+      workstationnode.vm.hostname = workstation[:hostname]
+      workstationnode.vm.network "private_network", ip: workstation[:ip]
+      workstationnode.vm.provider "virtualbox" do |workstationvb|
+        workstationvb.memory = workstation[:ram]
+        workstationvb.linked_clone = true
+      end
+    
+      # Install ansible-core and ansible-navigator
+      workstationconfig.vm.provision "shell" do |workstationansibleinstall|
+        workstationansibleinstall.inline = <<-SHELL
+          dnf -y install podman python3-pip mlocate
+          python3 -m pip install ansible-navigator ansible-core 
+          su - vagramt "usr/local/bin/ansible-navigator -m stdout"
+          exit 0
+        SHELL
+      end
+    
+      # Run Ansible Playbook to update system
+      workstationconfig.vm.provision "ansible" do |workstationansible|
+        workstationansible.playbook = "system-updates.yml"
+      end
+
+      # Copy home user SSH key to each VM's authorized_keys so you can run ansible from Vagrant Host
+      workstationconfig.vm.provision "shell" do |ssh|
+        ssh_prv_key = ""
+        ssh_pub_key = ""
+        if File.file?("#{Dir.home}/.ssh/id_rsa")
+          ssh_prv_key = File.read("#{Dir.home}/.ssh/id_rsa")
+          ssh_pub_key = File.readlines("#{Dir.home}/.ssh/id_rsa.pub").first.strip
+        else
+          puts "No SSH key found. You will need to remedy this before pushing to the repository."
+        end
+        ssh.inline = <<-SHELL
+          if grep -sq "#{ssh_pub_key}" /home/vagrant/.ssh/authorized_keys; then
+            echo "SSH keys already provisioned."
+            exit 0;
+          fi
+          echo "SSH key provisioning."
+          mkdir -p /home/vagrant/.ssh/
+          touch /home/vagrant/.ssh/authorized_keys
+          echo #{ssh_pub_key} >> /home/vagrant/.ssh/authorized_keys
+          echo #{ssh_pub_key} > /home/vagrant/.ssh/id_rsa.pub
+          chmod 644 /home/vagrant/.ssh/id_rsa.pub
+          echo "#{ssh_prv_key}" > /home/vagrant/.ssh/id_rsa
+          chmod 600 /home/vagrant/.ssh/id_rsa
+          chown -R vagrant:vagrant /home/vagrant
+          exit 0
+        SHELL
+      end
+    end
+  end
+end

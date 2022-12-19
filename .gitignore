@@ -1,0 +1,9 @@
+# Ignore .vagrant directories... These will be build using vagrant
+.vagrant_servers
+.vagrant_workstation
+
+# Ignore any log filea from VirtualBoc runs
+*.log
+
+# Ignore .json files from various ansible-navigator runs
+*.json

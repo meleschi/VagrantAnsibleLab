@@ -1,0 +1,2 @@
+VAGRANT_VAGRANTFILE=Vagrantfile.workstation VAGRANT_DOTFILE_PATH=.vagrant_workstation vagrant destroy -f
+VAGRANT_VAGRANTFILE=Vagrantfile.servers VAGRANT_DOTFILE_PATH=.vagrant_servers vagrant destroy -f

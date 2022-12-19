@@ -1,0 +1,8 @@
+---
+- name: Update System for yum or dnf based OSs
+  hosts: all
+  tasks:
+    - name: Update OS
+      ansible.builtin.dnf:
+        name: '*'
+        state: latest

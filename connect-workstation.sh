@@ -1,0 +1,1 @@
+VAGRANT_VAGRANTFILE=Vagrantfile.workstation VAGRANT_DOTFILE_PATH=.vagrant_workstation vagrant ssh

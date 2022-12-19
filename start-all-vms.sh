@@ -1,0 +1,2 @@
+VAGRANT_VAGRANTFILE=Vagrantfile.workstation VAGRANT_DOTFILE_PATH=.vagrant_workstation vagrant up
+VAGRANT_VAGRANTFILE=Vagrantfile.servers VAGRANT_DOTFILE_PATH=.vagrant_servers vagrant up --parallel
