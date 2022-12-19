@@ -29,9 +29,11 @@ If you keep your labwork / playbooks within ./classwork/, this will survive acro
 There is an example playbook under ./classwork/playbook that will perform a 'dnf -y update" to all of the VMs spun up in Vagrant.  To use please run the following command after you've connected to the workstation:
 
 (using ansible-navigator)
+
 [vagrant@workstation classwork]$ ansible-navigator run -m stdout playbook/system-updates.yml
 
 (using ansible-playbook)
+
 [vagrant@workstation classwork]$ ansible-playbook playbook/system-updates.yml
 
 The stock vagrant configs will spin up the following VMs:
