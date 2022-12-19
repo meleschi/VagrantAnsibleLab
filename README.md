@@ -1,9 +1,10 @@
 # VagrantAnsibleLab
-A set of Vagrant and Ansible configuration files to spin up VMs using Vagrant / VirtualBox  suitable for learning or developing using Ansible.  Both ansible-core and ansible-navigator are installed.  At the time the VMs are spun up, the most current version of both are installed.
+A set of Vagrant and Ansible configuration files to spin up VMs using Vagrant / VirtualBox  suitable for learning or developing using Ansible.  The most current versions of ansible-core and ansible-navigator available at the time the VMs are provisioned are installed.
 
 Uses: 
 1) Continue lab work from RedHat training courses RH294 or DO457
 2) Practice for RedHat Exams relating to Ansible such as EX294 / EX457
+3) World Domination
 
 Requirements:
 1) Virtualbox
