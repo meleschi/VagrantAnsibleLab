@@ -6,31 +6,36 @@ servers=[
     :hostname => "server1.example.com",
     :ip => "192.168.60.4",
     :box => "rockylinux/9",
-    :ram => 1024
+    :ram => 1024,
+    :cpus => 1
   },
   {
     :hostname => "server2.example.com",
     :ip => "192.168.60.5",
     :box => "rockylinux/9",
-    :ram => 1024
+    :ram => 1024,
+    :cpus => 1
   },
   {
     :hostname => "server3.example.com",
     :ip => "192.168.60.6",
     :box => "rockylinux/9",
-    :ram => 1024
+    :ram => 1024,
+    :cpus => 1
   },
   {
     :hostname => "server4.example.com",
     :ip => "192.168.60.7",
     :box => "rockylinux/9",
-    :ram => 1024
+    :ram => 1024,
+    :cpus => 1
   },
   {
     :hostname => "server5.example.com",
     :ip => "192.168.60.8",
     :box => "rockylinux/9",
-    :ram => 1024
+    :ram => 1024,
+    :cpus => 1
   }
 ]
 
@@ -46,6 +51,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |serversconfig|
       serversnode.vm.network "private_network", ip: servers[:ip]
       serversnode.vm.provider "virtualbox" do |serversvb|
         serversvb.memory = servers[:ram]
+        serversvb.cpus = servers[:cpus]
         serversvb.linked_clone = true
       end
     

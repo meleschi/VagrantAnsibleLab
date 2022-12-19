@@ -6,7 +6,8 @@ workstation=[
     :hostname => "workstation.example.com",
     :ip => "192.168.60.3",
     :box => "rockylinux/9",
-    :ram => 2048
+    :ram => 2048,
+    :cpus => 4
   }
 ]
 
@@ -23,6 +24,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |workstationconfig|
       workstationnode.vm.network "private_network", ip: workstation[:ip]
       workstationnode.vm.provider "virtualbox" do |workstationvb|
         workstationvb.memory = workstation[:ram]
+        workstationvb.cpus = workstation[:cpus]
         workstationvb.linked_clone = true
       end
     
@@ -31,7 +33,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |workstationconfig|
         workstationansibleinstall.inline = <<-SHELL
           dnf -y install podman python3-pip mlocate
           python3 -m pip install ansible-navigator ansible-core 
-          su - vagrant "usr/local/bin/ansible-navigator -m stdout"
+          su -c "/usr/local/bin/ansible-navigator -m stdout" vagrant
           exit 0
         SHELL
       end
