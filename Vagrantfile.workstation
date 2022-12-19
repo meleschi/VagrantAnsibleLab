@@ -31,15 +31,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |workstationconfig|
         workstationansibleinstall.inline = <<-SHELL
           dnf -y install podman python3-pip mlocate
           python3 -m pip install ansible-navigator ansible-core 
-          su - vagramt "usr/local/bin/ansible-navigator -m stdout"
+          su - vagrant "usr/local/bin/ansible-navigator -m stdout"
           exit 0
         SHELL
       end
     
       # Run Ansible Playbook to update system
-      workstationconfig.vm.provision "ansible" do |workstationansible|
-        workstationansible.playbook = "system-updates.yml"
-      end
+      #workstationconfig.vm.provision "ansible" do |workstationansible|
+        #workstationansible.playbook = "system-updates.yml"
+      #end
 
       # Copy home user SSH key to each VM's authorized_keys so you can run ansible from Vagrant Host
       workstationconfig.vm.provision "shell" do |ssh|
