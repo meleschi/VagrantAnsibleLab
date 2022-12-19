@@ -1,11 +1,15 @@
 # VagrantAnsibleLab
 A set of Vagrant and Ansible configuration files to spin up VMs using Vagrant / VirtualBox  suitable for learning or developing using Ansible.  Both ansible-core and ansible-navigator are installed.  At the time the VMs are spun up, the most current version of both are installed.
 
+Uses: 
+1) Continue lab work from RedHat training courses RH294 or DO457
+2) Practice for RedHat Exams relating to Ansible such as EX294 / EX457
+
 Requirements:
-Virtualbox
-Vagrant
-Ram - 8GB Minimum with stock # of VMs configured
-Disk - 8GB Minumum with stock # of VMs configured
+1) Virtualbox
+2) Vagrant
+3) Ram - 8GB Minimum with stock # of VMs configured
+4) Disk - 8GB Minumum with stock # of VMs configured
 
 How to install Vagrant: https://developer.hashicorp.com/vagrant/docs/installation
 
