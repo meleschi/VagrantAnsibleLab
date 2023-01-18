@@ -45,7 +45,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |serversconfig|
   servers.each do |servers|
     serversconfig.vm.define servers[:hostname] do |serversnode|
       serversnode.ssh.insert_key = true
-      #serversnode.vm.synced_folder ".", "/vagrant", disabled: false
+      serversnode.vm.synced_folder ".", "/vagrant", disabled: true
       serversnode.vm.box = servers[:box]
       serversnode.vm.hostname = servers[:hostname]
       serversnode.vm.network "private_network", ip: servers[:ip]
