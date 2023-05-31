@@ -53,7 +53,7 @@ workstation=[
   {
     :hostname => "workstation.example.com",
     :ip => "192.168.60.3",
-    :box => "rockylinux/9",
+    :box => "bento/rockylinux-8",
     :ram => 2048
   }
 ]
